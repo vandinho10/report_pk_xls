@@ -1,12 +1,17 @@
 # Importing necessary modules after ensuring they are available
 import json
 import pandas as pd
+import os
 import warnings
 from colorama import Fore, Style
 from openpyxl import Workbook
 
 # Setting a filter to ignore warnings during execution
 warnings.simplefilter("ignore")
+
+# Define base foldes as a path from __file__.
+BASE_FOLDER = os.path.dirname(__file__)
+os.chdir(BASE_FOLDER)
 
 data_file_name  = "data.json"
 try:
@@ -35,12 +40,11 @@ def map_file(map_type, calculated=False):
     elif map_type == 'vehicles':
         name = 'Mapa de veículos'
 
+    file_name = f'{name}{suffix_file}'
     if calculated:
-        file_name = name + suffix_calculate + suffix_file
-        return file_name
-    if not calculated:
-        file_name = name + suffix_file
-        return file_name
+        file_name = f'{name}{suffix_calculate}{suffix_file}'
+
+    return file_name
 
 
 def process_file(map_type):
